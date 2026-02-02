@@ -80,7 +80,8 @@ export default function NZeTAAdminPanel() {
     nationality: '',
     date_of_birth: '',
     passport_number: '',
-    status: 'Pending'
+    status: 'Pending',
+    type: 'Visit'
   });
 
   // Fetch applications from Supabase
@@ -109,7 +110,7 @@ export default function NZeTAAdminPanel() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       const response = await fetch(
         `${SUPABASE_URL}/rest/v1/admin_users?username=eq.${loginData.username}&password=eq.${loginData.password}&select=*`,
@@ -171,7 +172,8 @@ export default function NZeTAAdminPanel() {
       nationality: app.nationality,
       date_of_birth: app.date_of_birth,
       passport_number: app.passport_number,
-      status: app.status || 'Pending'
+      status: app.status || 'Pending',
+      type: app.type || 'Visit'
     });
     setShowModal(true);
   };
@@ -529,14 +531,23 @@ export default function NZeTAAdminPanel() {
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-500">Status</p>
-                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                        selectedApp.status === 'Approved' ? 'bg-green-100 text-green-800' :
-                        selectedApp.status === 'Rejected' ? 'bg-red-100 text-red-800' :
-                        selectedApp.status === 'Under Review' ? 'bg-yellow-100 text-yellow-800' :
-                        selectedApp.status === 'Expired' ? 'bg-gray-100 text-gray-800' :
-                        'bg-blue-100 text-blue-800'
-                      }`}>
+                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${selectedApp.status === 'Approved' ? 'bg-green-100 text-green-800' :
+                          selectedApp.status === 'Rejected' ? 'bg-red-100 text-red-800' :
+                            selectedApp.status === 'Under Review' ? 'bg-yellow-100 text-yellow-800' :
+                              selectedApp.status === 'Expired' ? 'bg-gray-100 text-gray-800' :
+                                'bg-blue-100 text-blue-800'
+                        }`}>
                         {selectedApp.status || 'Pending'}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Type</p>
+                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${selectedApp.status === 'Visit' ? 'bg-green-100 text-green-800' :
+                          selectedApp.status === 'Student' ? 'bg-red-100 text-red-800' :
+                            selectedApp.status === 'Work' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-blue-100 text-blue-800'
+                        }`}>
+                        {selectedApp.status || 'Visit'}
                       </span>
                     </div>
                   </div>
@@ -644,22 +655,37 @@ export default function NZeTAAdminPanel() {
                       />
                     </div>
                     <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Status *
-                    </label>
-                    <select
-                      value={formData.status}
-                      onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      disabled={loading}
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Under Review">Under Review</option>
-                      <option value="Approved">Approved</option>
-                      <option value="Rejected">Rejected</option>
-                      <option value="Expired">Expired</option>
-                    </select>
-                  </div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Status *
+                      </label>
+                      <select
+                        value={formData.status}
+                        onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={loading}
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Expired">Expired</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Visa Type *
+                      </label>
+                      <select
+                        value={formData.type}
+                        onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        disabled={loading}
+                      >
+                        <option value="Visit">Visit</option>
+                        <option value="Student">Student</option>
+                        <option value="Work">Work</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="flex gap-3 pt-4">

@@ -156,6 +156,11 @@ export default function NZETAStatusCheck() {
                   <p className="text-sm font-medium text-gray-500 mb-1">Status</p>
                   <p className="text-lg font-bold text-gray-900">{applicationData.status}</p>
                 </div>
+
+                <div className="bg-gray-50 p-4 rounded">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Visa Type</p>
+                  <p className="text-lg font-bold text-gray-900">{applicationData.type}</p>
+                </div>
               </div>
 
               <div className="mt-8 text-center">
