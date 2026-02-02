@@ -147,9 +147,14 @@ export default function NZETAStatusCheck() {
                   <p className="text-lg font-bold text-gray-900">{new Date(applicationData.date_of_birth).toLocaleDateString('en-NZ', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded md:col-span-2">
+                <div className="bg-gray-50 p-4 rounded">
                   <p className="text-sm font-medium text-gray-500 mb-1">Passport Number</p>
                   <p className="text-lg font-bold text-gray-900">{applicationData.passport_number}</p>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Status</p>
+                  <p className="text-lg font-bold text-gray-900">{applicationData.status}</p>
                 </div>
               </div>
 
